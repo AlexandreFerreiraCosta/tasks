@@ -4,7 +4,7 @@ Este aplicativo tem por objetivo organizar e gerenciar tarefas.
 
 Sera efetuado melhorias no projeto.
 
-![Tela Aplicação](https://github.com/AlexandreFerreiraCosta/imc/blob/master/imagens/IMC.gif)
+![Tela Aplicação](https://github.com/AlexandreFerreiraCosta/tasks/blob/desenvolvimento/imagens/tasks.gif)
 
 ## Requisitos
 
