@@ -20,6 +20,9 @@ class _HomeState extends State<Home> {
   List _toDoList = [];
   final _controladorNome = TextEditingController();
 
+  Map<String, dynamic> _listarRemover = new Map();
+  int _posicaoRemocao;
+
  @override
  void initState(){
     super.initState();
@@ -75,10 +78,13 @@ class _HomeState extends State<Home> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.only(top: 10.0),
-                itemCount: _toDoList.length,
-                itemBuilder: buildItem),
+            child: RefreshIndicator(
+              onRefresh: _refresh,
+              child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10.0),
+                  itemCount: _toDoList.length,
+                  itemBuilder: buildItem),
+            )
           )
         ],
       ),
@@ -109,10 +115,51 @@ class _HomeState extends State<Home> {
           });
         },
       ),
+      onDismissed: (direcao){
+        setState(() {
+          _listarRemover = Map.from(_toDoList[index]);
+          _posicaoRemocao = index;
+          _toDoList.removeAt(_posicaoRemocao);
+
+          _savarDados();
+
+          final snackBar = SnackBar(
+              content: Text("Tarefa ${_listarRemover["title"]} Removida !"),
+            action: SnackBarAction(
+              label: "Desfazer",
+              onPressed: (){
+                 setState(() {
+                   _toDoList.insert(_posicaoRemocao, _listarRemover);
+                   _savarDados();
+                 });
+              },
+            ),
+            duration: Duration(seconds: 2),
+          );
+
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(snackBar);
+        });
+      },
     );
   }
 
 
+  Future<void> _refresh() async{
+    await Future.delayed(Duration(seconds: 1));
+
+    setState(() {
+      _toDoList.sort((itemA,itemB){
+        if(itemA["ok"] && !itemB["ok"]) return 1;
+        else if(!itemA["ok"] && itemB["ok"]) return -1;
+        else return 0;
+      });
+
+      _savarDados();
+    });
+
+    return null;
+  }
 
   Future<File> _getArquivo() async {
     final diretorio = await getApplicationDocumentsDirectory();
