@@ -20,6 +20,17 @@ class _HomeState extends State<Home> {
   List _toDoList = [];
   final _controladorNome = TextEditingController();
 
+ @override
+ void initState(){
+    super.initState();
+
+    _recuperarDados().then((data){
+      setState(() {
+        _toDoList = json.decode(data);
+      });
+    });
+ }
+
   void _addTarefa(){
      setState(() {
        Map<String, dynamic> novaTarefa = new Map();
@@ -27,6 +38,7 @@ class _HomeState extends State<Home> {
        novaTarefa["ok"] = false;
        _controladorNome.text = "";
        _toDoList.add(novaTarefa);
+       _savarDados();
      });
   }
 
@@ -76,6 +88,7 @@ class _HomeState extends State<Home> {
                     onChanged: (checked){
                       setState(() {
                         _toDoList[index]["ok"] = checked;
+                        _savarDados();
                       });
                     },
                   );
