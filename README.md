@@ -1,17 +1,25 @@
-# tasks
+# TASKS
 
 Este aplicativo tem por objetivo organizar e gerenciar tarefas.
 
-## Getting Started
+Sera efetuado melhorias no projeto.
 
-This project is a starting point for a Flutter application.
+![Tela Aplicação](https://github.com/AlexandreFerreiraCosta/imc/blob/master/imagens/IMC.gif)
 
-A few resources to get you started if this is your first Flutter project:
+## Requisitos
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+ * Android Studio
+ * Android SDK
+ * Flutter SDK
+ * Git
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# tasks
+## Para iniciar no flutter
+
+* Instalar o Android Studio
+* Instalar e configurar o Dart SDK
+* Instalar e configurar o Flutter SDK
+* Configurar as Variáveis de Ambiente
+
+## Configurações do projetos nas IDE
+
+Este projeto é um projeto Flutter. Com isso, o processo de configuração dele é o padrão de qualquer projeto Flutter.
