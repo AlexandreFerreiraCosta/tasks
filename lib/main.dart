@@ -17,17 +17,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List _toDoList = [];
+  List _toDoList = ["Alexandre","Xande"];
 
   //TODO PARTE VISUAL DA APLICAÇÃO
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Lista de Tarefas"),
-          backgroundColor: Colors.blueAccent,
-          centerTitle: true,
-        ),
+      appBar: AppBar(
+        title: Text("Lista de Tarefas"),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+      ),
       body: Column(
         children: <Widget>[
           Container(
@@ -38,8 +38,7 @@ class _HomeState extends State<Home> {
                   child: TextField(
                     decoration: InputDecoration(
                         labelText: "Nova Tarefa",
-                        labelStyle: TextStyle(color: Colors.blueAccent)
-                    ),
+                        labelStyle: TextStyle(color: Colors.blueAccent)),
                   ),
                 ),
                 RaisedButton(
@@ -50,6 +49,20 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                padding: EdgeInsets.only(top: 10.0),
+                itemCount: _toDoList.length,
+                itemBuilder: (contexto, index) {
+                  return CheckboxListTile(
+                    title: Text(_toDoList[index]["title"]),
+                    value: _toDoList[index]["ok"],
+                    secondary: CircleAvatar(
+                      child: Icon( _toDoList[index]["ok"] ? Icons.check : Icons.error,),
+                    ),
+                  );
+                }),
           )
         ],
       ),
@@ -69,14 +82,12 @@ class _HomeState extends State<Home> {
     return file.writeAsString(data);
   }
 
-  Future<String> _recuperarDados() async{
-    try{
+  Future<String> _recuperarDados() async {
+    try {
       final file = await _getArquivo();
       return file.readAsString();
-
-    } catch (erro){
+    } catch (erro) {
       return null;
     }
-
   }
 }
